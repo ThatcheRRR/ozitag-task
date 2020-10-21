@@ -14,4 +14,4 @@ const app = <Provider store = {store}>
     <App />
 </Provider>
 
-render(<App />, document.getElementById('root'));
+render(app, document.getElementById('root'));

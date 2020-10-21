@@ -1,6 +1,8 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import Alert from '../Alert';
+import { submitForm } from '../../redux/actions';
 import './form.scss';
 
 const validate = values => {
@@ -21,14 +23,17 @@ const validate = values => {
 };
 
 const Form = () => {
+  const dispatch = useDispatch();
+  const error = useSelector(state => state.error);
+
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
     },
     validate,
-    onSubmit: values => {
-      console.log(values);
+    onSubmit: ({ email, password }) => {
+      dispatch(submitForm(email, password));
     },
   });
 
@@ -59,6 +64,7 @@ const Form = () => {
         {formik.errors.password ? <Alert>{formik.errors.password}</Alert> : null}
       </div>
       <button type = 'submit' className = 'form__button'>Submit</button>
+      {error && <Alert>{error}</Alert>}
     </form>
   );
 };
