@@ -1,13 +1,14 @@
 import React from 'react';
-import Alert from '../Alert';
 import { useFormik } from 'formik';
+import Alert from '../Alert';
+import './form.scss';
 
 const validate = values => {
   const errors = {};
   if (!values.password) {
     errors.password = 'Required';
-  } else if (values.password.length > 15) {
-    errors.password = 'Must be 15 characters or less';
+  } else if (values.password.length > 8) {
+    errors.password = 'Must be 8 characters or less';
   }
 
   if (!values.email) {
@@ -19,7 +20,7 @@ const validate = values => {
   return errors;
 };
 
-const FormWrapper = () => {
+const Form = () => {
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -32,32 +33,34 @@ const FormWrapper = () => {
   });
 
   return (
-    <form onSubmit = {formik.handleSubmit} className = 'from'>
-      <div className = 'form__filed'>
-        <label htmlFor = 'email'>Email</label>
+    <form onSubmit = {formik.handleSubmit} className = 'form'>
+      <div className = 'form__field'>
+        <label htmlFor = 'email' className = 'form__label'>Email</label>
         <input
           id = 'email'
           name = 'email'
           type = 'email'
           onChange = {formik.handleChange}
           value = {formik.values.email}
+          className = 'form__input'
         />
         {formik.errors.email ? <Alert>{formik.errors.email}</Alert> : null}
       </div>
-      <div className = 'form__filed'>
-        <label htmlFor = 'email'>Password</label>
+      <div className = 'form__field'>
+        <label htmlFor = 'email' className = 'form__label'>Password</label>
         <input
           id = 'password'
           name = 'password'
           type = 'password'
           onChange = {formik.handleChange}
           value = {formik.values.password}
+          className = 'form__input'
         />
-        {formik.errors.email ? <Alert>{formik.errors.password}</Alert> : null}
+        {formik.errors.password ? <Alert>{formik.errors.password}</Alert> : null}
       </div>
       <button type = 'submit' className = 'form__button'>Submit</button>
     </form>
   );
 };
 
-export default FormWrapper;
+export default Form;
