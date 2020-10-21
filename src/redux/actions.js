@@ -18,7 +18,7 @@ export const submitForm = (email, password) => {
       });
       if(response.ok) {
         const json = await response.json();
-        const token = json.data.accessToken;
+        const token = await json.data.accessToken;
         dispatch(login(token));
       } else {
         const error = await response.json();
@@ -43,8 +43,8 @@ const login = (token) => {
       });
       if(response.ok) {
         const json = await response.json();
-        const user = json.data;
-        dispatch({ type: LOGIN, user });
+        const user = await json.data;
+        dispatch({ type: LOGIN, user, token });
       } else {
         const error = await response.json();
         const message = await error.message;
@@ -55,6 +55,35 @@ const login = (token) => {
     }
   }
 }
+
+export const logout = (token) => {
+  return async dispatch => {
+    try {
+      const response = await fetch('https://cors-anywhere.herokuapp.com/https://tager.dev.ozitag.com/api/tager/user/profile/logout', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        }
+      });
+      if(response.ok) {
+        const json = await response.json();
+        const success = await json.success;
+        if(success) {
+          dispatch({ type: LOGOUT });
+        } else {
+          throw new Error('Something gone wrong');
+        }
+      } else {
+        const error = await response.json();
+        const message = await error.message;
+        throw new Error(message);
+      }
+    } catch(e) {
+      dispatch(fetchError(e.message));
+    }
+  }
+};
 
 const fetchError = (error) => {
   return {

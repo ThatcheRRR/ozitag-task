@@ -12,7 +12,9 @@ export const rootReducer = (state = initialState, action) => {
     case SUBMIT_FORM:
       return {...state, error: null};
     case LOGIN:
-      return {...state, isLogged: true, user: action.user};
+      return {...state, isLogged: true, user: action.user, token: action.token};
+    case LOGOUT:
+      return {...state, isLogged: false};
     case ERROR:
       return {...state, error: action.error};
     default: return state;
