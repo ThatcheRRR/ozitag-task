@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import '@babel/polyfill';
 import { rootReducer } from './redux/rootReducer';
-import App from './App';
+import App from './Components/App';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
