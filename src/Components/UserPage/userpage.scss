@@ -1,0 +1,42 @@
+.user-page {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 100px;
+    width: 100%;
+    padding: 0 10px;
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap column;
+
+    &__logout {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 10px;
+        font-weight: bold;
+        font-size: 1.2em;
+        text-transform: uppercase;
+        outline: none;
+        border: 2px solid #009e9c;
+        color: #009e9c;
+        background-color: #fff;
+        transition: all .2s ease-in-out;
+
+        &:hover {
+            color: #fff;
+            background-color: #009e9c;
+            cursor: pointer;
+        }
+    }
+}
+
+.info {
+    &:not(:last-of-type) {
+        margin-bottom: 15px;
+    }
+
+    &__header {
+        font-weight: bold;
+    }
+}

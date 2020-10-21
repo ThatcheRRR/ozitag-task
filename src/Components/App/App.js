@@ -1,10 +1,17 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import UserPage from '../UserPage';
 import Form from '../Form';
 import './app.scss';
 
 const App = () => {
+  const isLogged = useSelector(state => state.isLogged);
+
   return(
-    <Form />
+    <>
+      {isLogged && <UserPage />}
+      {!isLogged && <Form />}
+    </>
   )
 };
 
